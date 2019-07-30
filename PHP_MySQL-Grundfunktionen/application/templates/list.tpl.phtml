@@ -1,0 +1,69 @@
+<!--  C:\xampp\htdocs\php\php_Projekt_Barth\application\templates\list.tpl.phtml  -->
+
+
+<h3>Adressliste</h3>
+	
+
+<table>
+	
+	<?php foreach($this -> adressen AS $key => $adresse) : ?>
+	
+		<?php if($key == 0) : ?>
+			<tr>
+				<th>id</th>
+				<th>Vorname</th>
+				<th>Nachname</th>
+				<th>Strasse</th>
+				<th>PLZ</th>
+				<th>Ort</th>
+				<th>Email</th>
+				<th>Geburtstag</th>
+			</tr>
+		<?php endif; ?>
+		
+		<tr>
+			<td><?php echo $adresse -> getId(); ?></td>
+			<td><?php echo $adresse -> getVorname(); ?></td>
+			<td><?php echo $adresse -> getNachname(); ?></td>
+			<td><?php echo $adresse -> getStrasse(); ?></td>
+			<td><?php echo $adresse -> getPlz(); ?></td>
+			<td><?php echo $adresse -> getOrt(); ?></td>
+			<td><?php echo $adresse -> getEmail(); ?></td>
+			<td><?php echo $adresse -> getGeburtstag(); ?></td>
+			
+			<td><a href = "<?php echo $this -> getURL('Adresse', 'modify', $adresse -> getId() ); ?>" >Bearbeiten</a></td>
+			<td><a href = "<?php echo $this -> getURL('Adresse', 'clear', $adresse -> getId() ); ?>" >Löschen</a></td>
+		</tr>
+		
+	<?php endforeach; ?>
+</table>
+
+<hr>
+
+<?php if($this -> action != 'search'){ ?>
+
+<h5>Adresslist nach Nachnamen durchsuchen</h5>
+<p>
+<form action = "<?php echo PHP_SELF; ?>" method = "get" >
+	
+	<label for = "name" >Nachnamen suchen: </label>
+	<input type = "text" id = "name" name = "name" value = "" >
+	<button type = "subbmit" name = "action" value = "search" >Suchen</button>
+
+</form>
+</p>
+
+<hr>
+
+<h5>Adressen sortieren nach</h5>
+<p>
+	<a href = "<?php echo $this -> getURL('Adresse', 'orderName', 0); ?>" ><button>Nachname</button></a>
+	<a href = "<?php echo $this -> getURL('Adresse', 'orderPLZ', 0); ?>" ><button>PLZ</button></a>
+	<a href = "<?php echo $this -> getURL('Adresse', 'orderDay', 0); ?>" ><button>Geburtstag</button></a>
+</p>
+
+<?php } else { ?>
+<p>
+<a href = "<?php echo PHP_SELF; ?>" ><button>Zurück zur Liste</button></a>
+</p>
+<?php } ?>

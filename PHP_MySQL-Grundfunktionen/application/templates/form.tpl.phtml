@@ -1,0 +1,88 @@
+<!--  C:\xampp\htdocs\php\php_Projekt_Barth\application\templates\form.tpl.phtml  -->
+
+<h3>Adressen bearbeiten</h3>
+
+<?php if($this -> adresse -> getId() != 0 ){ ?>
+<p>ausgewählter Datensatz:</p>
+	<table>
+		<tr>
+			<th>id</th>
+			<th>Vorname</th>
+			<th>Nachname</th>
+			<th>Strasse</th>
+			<th>PLZ</th>
+			<th>Ort</th>
+			<th>Email</th>
+			<th>Geburtstag</th>
+		</tr>
+		
+		<tr>
+			<td><?php echo $this -> adresse -> getId(); ?></td>
+			<td><?php echo $this -> adresse -> getVorname(); ?></td>
+			<td><?php echo $this -> adresse -> getNachname(); ?></td>
+			<td><?php echo $this -> adresse -> getStrasse(); ?></td>
+			<td><?php echo $this -> adresse -> getPlz(); ?></td>
+			<td><?php echo $this -> adresse -> getOrt(); ?></td>
+			<td><?php echo $this -> adresse -> getEmail(); ?></td>
+			<td><?php echo $this -> adresse -> getGeburtstag(); ?></td>
+		</tr>
+		
+		
+	</table>
+	<br>
+	<hr>
+<?php } ?>
+
+<br>
+
+<p>Datensatz bearbeiten:</p>
+<form action = "<?php echo PHP_SELF; ?>" method = "post" >
+	
+	<div>
+		<label for = "id" >id: </label>
+		<input type = "text" id = "id" name = "id" 
+			   value = "<?php echo $this -> adresse -> getId(); ?>" 
+			   readonly >
+	</div>
+	<div>
+		<label for = "vorname" >Vorname: </label>
+		<input type = "text" id = "vorname" name = "vorname" 
+			   value = "<?php echo $this -> adresse -> getVorname(); ?>" >
+	</div>
+	<div>
+		<label for = "nachname" >Nachname: </label>
+		<input type = "text" id = "nachname" name = "nachname" 
+			   value = "<?php echo $this -> adresse -> getNachname(); ?>" >
+	</div>
+	<div>
+		<label for = "strasse" >Strasse: </label>
+		<input type = "text" id = "strasse" name = "strasse" 
+			   value = "<?php echo $this -> adresse -> getStrasse(); ?>" >
+	</div>
+	<div>
+		<label for = "plz" >PLZ: </label>
+		<input type = "text" id = "plz" name = "plz" 
+			   value = "<?php echo $this -> adresse -> getPlz(); ?>" >
+	</div>
+	<div>
+		<label for = "ort" >Ort: </label>
+		<input type = "text" id = "ort" name = "ort" 
+			   value = "<?php echo $this -> adresse -> getOrt(); ?>" >
+	</div>
+	<div>
+		<label for = "email" >Email: </label>
+		<input type = "text" id = "email" name = "email" 
+			   value = "<?php echo $this -> adresse -> getEmail(); ?>" >
+	</div>
+	<div>
+		<label for = "geburtstag" >Geburtstag: </label>
+		<input type = "text" id = "geburtstag" name = "geburtstag" 
+			   value = "<?php echo $this -> adresse -> getGeburtstag(); ?>" >
+	</div>
+	<div>
+		<button type = "submit" name = "action" value = "save" >Speichern</button>
+		<button type = "reset">Zurücksetzen</button>
+		<button type = "submit" name = "action" value = "all" >Abbrechen</button>
+	</div>
+	
+</form>

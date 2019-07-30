@@ -1,0 +1,21 @@
+<!--  C:\xampp\htdocs\php\php_Projekt_Barth\application\templates\head.tpl.phtml   -->
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Projekt Barth</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/styles.css" />
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+	<body>
+		<h1>Adressen der Benutzer</h1>
+		
+		<p>
+		<a href = "<?php echo $this -> getURL('Adresse', 'all'); ?>" >Alle Adressen anzeigen</a>
+		<a href = "<?php echo $this -> getURL('Adresse', 'new', 0); ?>" >Neue Adresse eintragen</a>
+		</p>
+		
+
+
