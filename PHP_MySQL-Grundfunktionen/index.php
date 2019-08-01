@@ -13,12 +13,3 @@
 	spl_autoload_register('myAutoload');
 	
 	new Controller();
-	
-	
-	
-	
-	
-		
-
-
-		
