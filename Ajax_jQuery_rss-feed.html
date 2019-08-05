@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+    <head>
+        <title>Zeitungsseite aus RSS darstellen</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style type="text/css">
+            
+            #wrap {
+                display: flex;
+                justify-content: space-between;
+            }
+            #logo {
+                width: 50%;
+                
+            }
+            #search {
+                width: 30%;
+                _align-self: flex-end;
+            }
+            article {
+                clear: both;
+                background-color: #ddffff;
+                width: 80%;
+                margin: auto;
+                margin-bottom: 10px;
+                min-height: 200px;
+                
+            }
+            a {
+                text-decoration: none;
+                color: #222244;
+            }
+            span {
+                font-size: 0.9em;
+                font-weight: bold;
+                margin-right: 1.5em;
+                
+            }
+            span#copyright {
+                margin-bottom: 3em;
+                display: block;
+                
+            }
+            span#category {
+                margin-right: 3em;
+            }
+            span#date {
+                white-space: nowrap;
+            }
+            img {
+                margin-right: 1em;
+            }
+            
+        </style>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function() {    
+            
+            var inputValue = $('input#word').val();
+            console.log(inputValue);
+            
+            // Ajax-Anfrage mit $.get()-Funktion
+            // $.get(URL, data, function(data, status, xhr), dataType);
+            
+            $.get('proxy.php', showFeed, 'xml');
+            
+            function showFeed(data, status, xhr) {
+                
+                $('body').append('<div id="wrap"></div>');
+                $('#wrap').append('<div id="logo"></div>');
+                $(data).find('image').each(function(){
+                    $('#logo').append('<a href="' + $(this).find('link').text() + '"</a>');
+                    $('a').append('<image src="' + $(this).find('url').text() + '"/>');
+                });
+                $('#logo').append('<span id="copyright">' + $(data).find('copyright').text() + '</span>');
+                
+                $('#wrap').append('<div id="search"></div>');
+                $('#search').append('<input type="text" name="word" id="word">');
+                $('#search').append('<button value="Search" id="button">Search</button>');
+                
+                if (inputValue == null) {
+                    $(data).find('item').each(function() {
+                        $('body').append('<article></article>');
+                        var article = $('body article:last');
+
+                        $(article).append('<h2>' + $(this).find('title').text() + '</h2>');
+                        $(article).append('<span id="category">' + $(this).find('category')
+                                .text() + '</span>');
+                        var date = $(this).find('pubDate').text().substring(0, 16);
+                        var time = $(this).find('pubDate').text().substring(17, 22);
+                        $('span:last').after('<span id="date">' + date + '</span>');
+                        $('span:last').after('<span>' + time + '&nbsp;Uhr<span>');
+                        $(article).append('<a href="'+ $(this).find('link').text() + '"></a>');
+                        $('body article:last a').append('<p>' + $(this).find('description')
+                                .text() + '</p>');
+                    });
+                }
+                
+                /*  // toggle-Funktion: Klick auf Überschrift blendet Teaser ein bzw. aus
+                $('h2').click(function() {
+                    $(this).siblings().slideToggle(function() {
+                        // min-height setzen, je nach toggle-Zustand
+                        // console.log($(this).parent());
+                        var height = parseInt($(this).parent().css('min-height'));
+                        console.log(height);
+                        if (height > 20) {
+                            $(this).parent().css({'min-height': '20px'});
+                        } else if (height < 100) {
+                            $(this).parent().css({'min-height': '200px'});
+                        }
+                    });
+                    
+                });
+                */ 
+                
+                $('button').click(function() {
+                    inputValue = $('input#word');
+                    console.log($(inputValue).val());
+                    
+                    $('body').find('article').each(function() {
+                        $('body article').remove();
+                        
+                    });
+                    
+                    if (inputValue != null) {
+                        $(data).find('item:contains(' + $(word).val() + ')').each(function() {
+                            // removeArticle();
+                            // buildSearchArticle();
+                            
+                            $('body').append('<article></article>');
+                            var article = $('body article:last');
+
+                            $(article).append('<h2>' + $(this).find('title').text()
+                                    .replace($(word).val(), '<mark>' + $(word).val() + '</mark>') + '</h2>');
+                            $(article).append('<span id="category">' + $(this).find('category')
+                                    .text().replace($(word).val(), '<mark>' + $(word).val() + '</mark>') + '</span>');
+                            var date = $(this).find('pubDate').text().substring(0, 16);
+                            var time = $(this).find('pubDate').text().substring(17, 22);
+                            $('span:last').after('<span id="date">' + date + '</span>');
+                            $('span:last').after('<span>' + time + '&nbsp;Uhr<span>');
+                            $(article).append('<a href="'+ $(this).find('link').text() + '"></a>');
+                            $('body article:last a').append('<p>' + $(this).find('description')
+                                    .text().replace($(word).val(), '<mark>' + $(word).val() + '</mark>') + '</p>');
+                        });
+                        
+                    } else {
+                        console.log('Wir haben kein Suchwort gefunden');
+                    }
+                    
+                });
+                
+                
+               
+               
+            }
+            
+        });   
+              
+                
+            
+        </script>
+    </head>
+    <body>
+        
+    </body>
+</html>
