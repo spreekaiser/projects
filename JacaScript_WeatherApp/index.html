@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html lang="de">
+    <head>
+        <title>API Wetter</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link href="css/format.css" rel="stylesheet" type="text/css">
+        <link href="css/owfont-regular.css" rel="stylesheet" type="text/css">
+        
+        <script src="js/Ajax.js"></script>
+        <script src="js/script.js" type="module"></script>
+    </head>
+    <body>
+        <noscript>
+        <p>Kein Javascript, kein Wetter!</p>
+        </noscript>
+        <div id="wrapper">
+            <header id="top">
+                <h1>Wetter zum Selbermachen</h1>
+            </header>
+            <nav id="main_nav">
+                <ul>
+                   <!-- <li><a href="#" id="current">Testen</a></li> -->
+                    <li><a href="#" id="add_position">Standort+</a></li>
+                    <li><a href="#" id="add_location">Ort+</a></li>
+                    <li><a href="#" id="update">Aktualisieren</a></li>
+                    <li><a href="#" id="clear">Löschen</a></li>
+                </ul>
+                <div>
+                    <img src="images/hamburger_menu.png" alt="hamburger" id="hamMenu">
+                </div>
+            </nav>
+            <main>
+                
+            </main>
+        </div> <!-- Ende Wrapper -->
+        <div id="templates">
+            <!-- Div fürs aktuelle Wetter -->
+            <div class="current_weather">
+                <h2 class="city_name"></h2>
+                <!-- <img src="images/2791.jpg" alt=""> -->
+                
+                <div class="showWrapper">
+                    <i class="weatherIcon"></i>
+                    <div class="relative">
+                    <span class="temperature"></span><span class="description"></span>
+                    <p>Windgeschwindigkeit: <span class="windspeed"></span></p> 
+                    <p>Bewölkung: <span class="cloudness"></span></p>
+                    <p>Sonnenaufgang: <span class="sunrise"></span> 
+                        Sonnenuntergang: <span class="sunset"></span></p>
+                </div>
+                </div>
+            </div>
+            <!-- Abfragemaske beim Hinzufügen einer neuen Location -->    
+        </div>
+        
+        <div id="locationWrapper">
+            <div id="locationContainer">
+                <p class="questionLocation" id="continentQuestion">Auf welchem Kontinent liegt gesuchte Stadt:</p>
+                <select class="selectLocation" id="continentSelect"></select>
+                <p class="questionLocation" id="countryQuestion">In welchem Land liegt gesuchte Stadt:</p>
+                <select class="selectLocation" id="countrySelect"></select>
+                <p class="questionLocation" id="cityQuestion">Wählen Sie die gesuchte Stadt:</p>
+                <select class="selectLocation" id="citySelect"></select>
+            </div>
+        </div>
+    </body>
+</html>
+
