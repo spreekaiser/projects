@@ -1,0 +1,12 @@
+[ 
+    { "name": "Eisbergsalat", "url": "Cabbage.ico", "price": "0.90", "unit": "Stück" },
+    { "name": "Gurke", "url": "Cucumber.ico", "price": "2.45", "unit": "kg" },
+    { "name": "Tomate", "url": "Tomato.ico", "price": "1.75", "unit": "kg" },
+    { "name": "Zwiebel", "url": "Onion.ico", "price": "2.35", "unit": "kg" },
+    { "name": "Paprika", "url": "Pepper.ico", "price": "3.50", "unit": "kg" },
+    { "name": "Kürbis", "url": "Pumpkin.ico", "price": "5.15", "unit": "Stück" },
+    { "name": "Aubergine", "url": "Eggplant.ico", "price": "3.70", "unit": "kg" },
+    { "name": "Mais", "url": "corn.ico", "price": "0,85", "unit": "Stück" },
+    { "name": "Chili", "url": "hot-pepper.ico", "price": "6.45", "unit": "kg" }
+]
+

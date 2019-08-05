@@ -1,0 +1,31 @@
+
+User - Erklärungen
+
+Die vorliegende App dient zur Bestellung von Obst und Gemüse. 
+Es kann eine individuelle Green Box zusammen gestellt werden.
+
+Im Fußbereich kann zwischen dem Angebot der Früchte bzw. des Gemüses hin und her
+gewechselt werden. Falls ein Produkt zur Bestellung in Betracht kommt, kann es
+mit einem Klick auf das Bild zur Green Box hinzu gefügt werden.
+
+Im zum Produkt gehörigen Schieberegler kann die Bestellmenge des Produktes 
+festgelegt werden. Der Preis wird für jede Bestellmenge sofort angezeigt.
+
+Durch klicken auf das Löschsymbol (Kreuz hinter dem Namensfeld) kann das jeweilige 
+Produkt wieder aus der Green Box entfernt werden.
+
+Falls die Bestellung abgeschlossen ist, sollte der Bestellen-Button gedrückt
+werden, um zum Bestellformular zu gelangen. Nach dem Eintragen der Daten kann
+dieses Formular abgesendet werden.
+
+
+
+
+weitere Schritte der Entwicklung:
+
++ Erstellen einer Datenbank, um die User-Daten zu speichern
++ Einbinden einer Bezahl-Funktion mit Kreditkarten, Sofort-Überweisung etc.
++ erstellen weiterer Produktkategorien --> dann mit anderem Menü
+
+
+

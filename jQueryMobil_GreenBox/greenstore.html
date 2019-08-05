@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<!--
+Der User kann aus einer Reihe von Früchten und Gemüsen auswählen, welche er bestellen
+möchte. Natürlich können unterschiedliche Stückzahlen und Lieferdetails angegeben werden.
+
+-->
+<html>
+    <head>
+        <title>Die Grüne Box bestellen</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <style>
+            ui-body-a {
+                background-color: #98fb98;
+            }
+            h1 {
+                color: #008b00;
+            }
+            #explication {
+                margin-bottom: 2em;
+            }
+            #explication h4 {
+                margin: 0;
+                padding: 0;
+                
+            }
+            
+            #mainLeft {
+                overflow: auto;
+            }
+            #mainLeft p {
+                margin: 0;
+                padding: 0;
+                font-size: 0.7em;
+                font-weight: bold;
+            }
+            #mainRight {
+                
+            }
+            .order {
+                margin-top: -3em;
+                margin-bottom: -2em;
+            }
+            #productBox {
+                width: 85%;
+                height: 18em;
+                border: dashed 1px #d4d4d4;
+                color: #d4d4d4;
+                padding-top: 8em;
+                padding-left: 10%;
+            }
+            .sort {
+                position: relative;
+                top: -1em;
+                left: 3%;
+                width: 60%;
+                height: 1.2em;
+                border-color: #d4d4d4;
+            }
+            
+            #custom-border-radius .ui-btn-icon-notext.ui-corner-all {
+                -webkit-border-radius: .3125em;
+                border-radius: .3125em;
+                position: relative;
+                left: 88%;
+                top: 63px;
+            }
+            input.ui-slider-input {
+                position: relative;
+                top: 40px;
+                width: 10%;
+                height: 1.2em;
+                border-color: #d4d4d4;
+            }
+            .order .sumLabel {
+                position: relative;
+                left: 16%;
+                top: 10px;
+                font-size: 0.8em;
+            }
+            .order .sumProduct {
+                position: relative;
+                left: 60%;
+                top: -16px;
+                width: 35%;
+                border-color: #d4d4d4;
+            }
+            #resultLabel {
+                display: inline-block;
+                margin-top: 5em;
+            }
+            #resultInput {
+                display: inline-block;
+                width: 50%;
+                margin-left: 3%;
+                margin-top: 5em;
+            }
+            #orderButton {
+                margin-top: 1em;
+            }
+            a .button {
+                color: #008b00;
+                background-color: #90ee90;
+                
+            }
+            .ui-field-contain label, .ui-controlgroup label, .ui-controlgroup value {
+            font-size: 0.9em;
+            }
+            legend {
+                color: #3388cc;
+                font-size: 0.8em;
+                font-style: italic;
+                margin-top: 1em;
+                margin-bottom: 0.5em;
+            }
+        </style>
+        <!-- Link für letzte jQuery-Version, falls nicht in jQuery-Mobile gearbeitet wird -->
+        <!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
+        <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+            
+            // was passiert, wenn DOM geladen:
+            $(document).ready(function() {
+                $("[data-role='navbar']").navbar();
+                $("[data-role='header'], [data-role='footer']").toolbar();
+                
+                                
+                showHead();   // Anzeige der Überschrift, Slogan und Green Box-Image
+                showInit();   // Anzeige einer Kurzerklärung für User
+                getFruits();  // Produkt-Kategorie der Früchte werden vorgeladen 
+                
+                
+                // Event-Handler auf Menü-Button
+                $('#buttonFruits').click(getFruits);
+                $('#buttonVegetables').click(getVegetables);
+                
+                
+            });
+            
+            
+            // globale Variablen
+            var form = false;
+            var endResult;
+            
+            
+            
+            function showHead() {
+                var slogan = 'Obst und Gemüse direkt vom Erzeuger';
+                var entry = 'Füllen Sie Ihre Green Box individuell nach Ihrem Geschmak';
+                
+                $('#explication').prepend('<h4></h4>');
+                $('h4').html(slogan);
+                
+                $('#headLeft').append('<p></p>');
+                $('#headLeft p').html(entry);
+                
+                $('#headRight').append('<img>');
+                $('img').attr('src', 'vegetables/green-box.ico');
+                $('img').css({'width': '60%', 'height': '60%', 'margin-left': '30%'});
+                
+                
+                
+            }
+            
+            function showInit() {
+                $('#mainRight').append('<p id="productBox"></p>');
+                $('#productBox').html('Auf Produkt klicken oder tippen, um es \n\
+                                        in der Green Box abzulegen');
+            }
+            
+            // AJAX-Anfrage um JSON-Objekt fruits.json zu erhalten
+            function getFruits() {
+                // console.log('Früchte werden angezeigt');
+                $.getJSON('fruits.json', showFruits);
+                
+                // $.getJSON('fruits.json', function(fruits) {
+                //    console.log(fruits);
+                // });
+                
+            }
+            
+            // Anzeige aller Früchte
+            function showFruits(fruits) {
+                // console.log(fruits[0].url);
+                
+                
+                $('#mainLeft').find('.productList').remove();
+                
+                $.each(fruits, function(index, element) {
+                    // console.log(fruits[index].url);
+                    // console.log(element.url);
+                    let category = 'fruits/';
+                    showProduct(element, category);
+                    
+                });
+                
+               $('#mainLeft .product').on('click', addProduct);
+               
+            }
+            
+            // AJAX-Anfrage um JSON-Objekt vegetables.json zu erhalten            
+            function getVegetables() {
+                // console.log('Gemüse wird angezeigt');
+                $.getJSON('vegetables.json', showVegetables);
+                
+            }
+            
+            // Anzeige des Gemüses
+            function showVegetables(vegetables) {
+                
+                $('#mainLeft').find('.productList').remove();
+                
+                $.each(vegetables, function(index, element) {
+                    
+                    let category = 'vegetables/';
+                    showProduct(element, category);
+                    
+                });
+                
+                $('#mainLeft .product').on('click', addProduct);
+                
+            }
+            
+            // ausgelagerte Produkt-Anzeige, um Quelltext schmal zu halten, 
+            // wenn mehrere Produkt-Kategorien hinzugefügt werden
+            function showProduct(element, category) {
+                // console.log(category, element, $(element).attr('data-name'));
+                
+                $('#mainLeft').append('<div class="productList"></div>');
+                    let div = $('#mainLeft div:last');
+                    div.append('<img class="product">');
+                    $('#mainLeft img:last').attr('src', category + element.url)
+                                 .attr('data-name', element.name)
+                                 .attr('data-price', element.price)
+                                 .attr('data-unit', element.unit)
+                                 .attr('data-category', category)
+                                 .attr('data-url', element.url)
+                                 .css({'width': '80%', 'margin-top': '1.3em'});
+                    div.append('<p>'+ element.name +'</p>');
+                    div.append('<p>'+ element.price +' Euro je '+ element.unit +'</p>');
+                
+            }
+            
+            // Produkt wird der Green Box hinzugefügt und aus Auswahlliste gelöscht
+            function addProduct(event) {
+                
+                $(event.target).off('click');
+                
+                $(event.target).next('p').remove();
+                $(event.target).next('p').remove();
+                             
+                $(event.target).appendTo('#mainRight');
+                // console.log($(event.target).attr('data-name'), $(event.target).attr('data-price'));
+                
+                
+                if (form == false) {
+                   showForm();
+                   form = true;
+                }
+                              
+                addInput(event.target);
+                
+                if (form == true) {
+                    showResult();
+                    showButton();
+                }
+                
+            }
+            
+            // Anzeige-Elemente in Green Box werden erzeugt
+            function addInput(element) {
+                // console.log(element);
+                
+                $('#mainRight').append('<div class="order"></<div>');
+                
+                $('.order:last').append('<div class="delete" id="custom-border-radius"><a>No text</a></div>');
+                $('.delete a').attr('href', '#')
+                              .attr('class', 'ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all');
+                $('.delete a').on('click', removeProduct);
+                
+                $(element).css({'width': '20%', 'margin-right': '0'}).appendTo('.order:last');
+                
+                $('.order:last').append('<input class="sort">');
+                $('.order:last input:first').val($(element).attr('data-name'));
+                // console.log($(element).attr('data-name'));
+                
+               
+                      
+                $('.order:last').append('<input class="slider" min="1" max="20" value="1">');
+                $('.order:last .slider').slider({defaults: true, mini: true, hightlight: true});
+                
+                $('.order:last .slider').change(function(event) {
+                    // console.log($(event.target).val());
+                    // console.log($(element).attr('data-price'));
+                    let result = parseInt($(event.target).val()) * $(element).attr('data-price');
+                    $(event.target).parents('.order').find('.sumProduct').val(result.toFixed(2) + ' €');  // Produktsumme anzeigen
+                    // console.log($(event.target).parents('.order').find('.sumProduct'));
+                    showResult();
+                    
+                });
+                
+                $('.order:last').append('<label class="sumLabel"></label>'); // Produktpreis anzeigen
+                $('.order:last .sumLabel').text($(element).attr('data-unit') + ' x ' + $(element).attr('data-price')+ ' €');
+                // console.log($('.sumLabel'));
+                // console.log($(element).attr('data-price'));
+                $('.order:last .sumLabel').after('<input class="sumProduct">');
+                $('.order:last .sumProduct').val($(element).attr('data-price') + ' €');
+                
+                
+                // console.log($(quantity).attr('value'));
+                
+                
+            }
+            
+            // Die Kopfzeile der Green Box wird erzeugt und anzegeigt
+            function showForm() {
+                
+                $('#productBox').remove();
+                
+                $('#mainRight').append('<label id="numLabel"></label').append('<label id="sortLabel"></label');
+                $('#numLabel').html('Anzahl').css({'display': 'inline', 'width': '30%'});
+                $('#sortLabel').html('Sorte').css({'display': 'inline', 'margin-left': '20%'});
+                
+                
+            }
+            
+            // die GesamtSumme aller ausgewählten Produkte und Menge wird errechnet und angezeigt
+            function showResult() {
+                
+                $('#sumResult').remove();
+                $('.order:last').after('<div id="sumResult"></div>');
+                $('#sumResult').append('<label id="resultLabel"></label>').text('gesamt:');
+                $('#sumResult').append('<input id="resultInput">');
+                
+                let result = 0;
+                
+                $('#mainRight .sumProduct').each(function(index, element) {
+                    // console.log(element.value);
+                    result += parseFloat(element.value);
+                    // result += result;
+                    // console.log(result);
+                    $('#resultInput').val(result.toFixed(2) + ' Euro');
+                    
+                });
+                
+                endResult = result;
+            }
+            
+            // Bestell-Button wird erzeugt und angezeigt
+            function showButton() {
+                $('#orderButton').remove();
+                $('#sumResult').after('<button id="orderButton" class="ui-btn ui-shadow ui-corner-all">'+'Bestellen'+'</button>');
+                $('#orderButton').on('click', function(event) {
+                    event.preventDefault();
+                    $.mobile.changePage('#formSite', {transition: 'fade'}, true);
+                    $('#endSum').val(endResult.toFixed(2) + ' Euro');
+                });
+            }
+            
+            // Produkt aus Green Box löschen und wieder im Store anzeigen
+            function removeProduct(event) {
+                // console.log('Produkt wird wieder in Regal gestellt');
+                
+                
+                if ($('#mainRight .sumProduct').length == 1) {
+                        $('#numLabel').remove();
+                        $('#sortLabel').remove();
+                        $('#orderButton').remove();
+                        showInit();
+                        form = false;
+                    }
+                
+                
+                $(event.target).parents('.order').remove();
+                showResult();
+                
+                let product = $(event.target).parent().next();
+                // $(product).appendTo('#mainLeft').css({'width': '100%'});
+                // console.log(product);
+                
+                $('#mainLeft').append('<div class="productList"></div>');
+                    let div = $('#mainLeft div:last');
+                    div.append('<img class="product">');
+                    $('#mainLeft img:last').attr('src', $(product).attr('data-category') 
+                                           + $(product).attr('data-url'));
+                    $('#mainLeft img:last').css({'width': '80%', 'margin-top': '1.3em'});
+                    div.append('<p id="description"'+ $(product).attr('data-index') +'>'
+                                                    + $(product).attr('data-name') +'</p>');
+                    div.append('<p id="description"'+ $(product).attr('data-index') +'>'
+                                                    + $(product).attr('data-price') +' Euro je '
+                                                    + $(product).attr('data-unit') +'</p>');
+                
+                // console.log($(product).attr('data-category'));
+            }
+            
+                
+        </script>
+    </head>
+    <body>
+        <header data-role="header" data-position="fixed" data-theme="a">
+            <h1>Green Box</h1>
+        </header>
+        <section id="start" data-role="page">
+            <main role="main" class="ui-content">
+                <div id="explication" class="ui-grid-a">
+                    <div id="headLeft" class="ui-block-a"></div>
+                    <div id="headRight" class="ui-block-b"></div>
+                </div> 
+               <div id="wrap" class="ui-grid-a">
+                   <div id="mainLeft" class="ui-block-a" style="width: 35%">
+                       
+                   </div>
+                   <div id="mainRight" class="ui-block-b" style="width: 65%">
+                       
+                       <div id="label"></div>
+                   </div>
+               </div>
+            </main>
+            <footer data-role="footer" data-position="fixed" data-theme="a">
+              <nav data-role="navbar">
+                  <ul>
+                      <li>
+                          <a id="buttonFruits" href="#" class="button ui-btn ui-shadow ui-corner-all">Früchte</a>
+                      </li>
+                      <li>
+                          <a id="buttonVegetables" href="#" class="button ui-btn ui-shadow ui-corner-all">Gemüse</a>
+                      </li>
+                  </ul>
+              </nav>
+          </footer>
+        </section>
+        
+        
+        <section id="formSite" data-role="page">
+        <main role="main" class="ui-content">
+        <h1>Ihre Green Box</h1>
+        <!-- action-Link dient zur probeweisen versendung der Formulardaten --> 
+          <form     
+        action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi" 
+        method="get">
+        <fieldset data-role="fieldcontain">
+          <legend>Persönliche Daten</legend>
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                <label for="firstname" id="test">Vorname:</label>
+                <input type="text" name="firstname" id="firstname" size="20"/>
+              </div>
+              <div class="ui-block-b">
+                <label for="lastname">Nachname: </label>
+                <input type="text" name="lastname" id="lastname" size="20"/>
+              </div>
+          </div>
+          <div class="ui-grid-a">
+              <div class="ui-block-a" style="width: 25%">
+                <label for="zipCode">PLZ:</label>
+                <input type="number" pattern="[0-9]*" name="zipCode" id="zipCode" size="5" maxlength="5"/>
+              </div>
+              <div class="ui-block-b" style="width: 75%">
+                <label for="location">Ort:</label>
+                <input type="text" name="location" id="location" size="20"/>
+              </div>
+          </div>
+          <div>
+            <label for="email">E-Mail:</label>
+            <input type="text" name="email" id="email" size="20"/>
+          </div>
+          <div class="ui-grid-a">
+              <div class="ui-block-a">
+                <label for="telefon">Telefon:</label>  
+                <input type="tel" name="telefon" id="telefon" size="15"/>
+              </div>
+              <div class="ui-block-b">
+                  <label for="mobile">Mobile:</label>
+                  <input type="tel" name="mobile" id="mobile" size="15"/>
+              </div>
+          </div>
+          <div class="ui-grid-a">
+              <div class="ui-block-a" style="width: 40%">
+                  <label for="date">Geburtsdatum:</label>
+                  <input type="date" name="date" id="date" />
+              </div>
+              <div class="ui-block-b" style="width: 60%">
+                  <label for="birthplace">Geburtsort</label>
+                  <input type="text" name="birthplace" id="birthplace" size="20"/>
+              </div>
+          </div>
+        </fieldset>
+        <fieldset data-role="fieldcontain">
+          <legend>Verwendung der persönlichen Daten</legend>
+                <label for="newsletter">
+                <input type="checkbox" name="newsletter" id="newsletter" data-role="flipswitch"
+                      data-on-text="Ein" data-off-text="Aus"> 
+                    Newsletter abonnieren?</label>
+                <label for="advertising">
+                <input type="checkbox" name="advertising" id="advertising" data-role="flipswitch"
+                       data-on-text="Ein" data-off-text="Aus"> 
+                    Daten zu Werbezwecken verwenden?</label>
+        </fieldset>
+        <fieldset id="orderSum" data-role="fieldcontain">
+            <label for="endSum">Ihre Summe</label>
+            <input type="text" name="endSum" id="endSum" size="15">
+        </fieldset>      
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <legend>Zahlweise</legend> 
+            <div class="ui-grid-b">  
+                <div class="ui-block-a">     
+                    <label><input type="radio" name="Zahlweise" value="KK"/> Kreditkarte</label>
+                </div>
+                <div class="ui-block-b">
+                    <label><input type="radio" name="Zahlweise" value="Re"/> Rechnung</label>
+                </div>
+                <div class="ui-block-c">
+                    <label><input type="radio" name="Zahlweise" value="NN"/> Nachnahme</label>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset data-role="controlgroup" data-type="horizontal">
+          <legend>Das Formular:</legend>
+          <div class="ui-grid-a">
+            <div class="ui-block-a">
+                <input type="reset" value="Leeren" data-mini="true" />
+            </div>
+            <div class="ui-block-b">
+                <input type="submit" value="Absenden" data-mini="true" />
+            </div>
+          </div>
+        </fieldset>
+      </form> 
+      </main>
+        <footer data-role="footer">
+            
+        </footer>
+      </section>
+        
+        
+    </body>
+</html>

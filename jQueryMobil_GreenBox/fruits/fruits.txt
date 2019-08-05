@@ -1,0 +1,31 @@
+ Datentr„ger in Laufwerk C: ist System
+ Volumeseriennummer: D0A6-F05F
+
+ Verzeichnis von C:\xampp\htdocs\Modul 5\JQuery\public_html\project\fruits
+
+31.07.2019  12:30    <DIR>          .
+31.07.2019  12:30    <DIR>          ..
+30.07.2019  13:49           255.581 Apple-green.ico
+30.07.2019  13:58           370.781 Apple-red.ico
+30.07.2019  13:56           442.142 Apricot.ico
+30.07.2019  13:49           181.516 Banana.ico
+30.07.2019  13:56           290.883 Cherry.ico
+30.07.2019  13:50           246.179 Coconut.ico
+31.07.2019  12:30                 0 fruits.txt
+30.07.2019  13:53           236.487 Grapefruit.ico
+30.07.2019  13:51           253.071 Kiwi.ico
+30.07.2019  13:51           239.594 Lemon-hole.ico
+30.07.2019  14:00           240.482 Lemon.ico
+30.07.2019  13:53           243.749 Lime.ico
+30.07.2019  13:57           269.656 Mango.ico
+30.07.2019  13:54           275.029 Maracuja.ico
+30.07.2019  13:51           235.581 Melon.ico
+30.07.2019  13:55           372.526 Olive-Green.ico
+30.07.2019  13:57           380.872 Peach.ico
+30.07.2019  13:57           330.505 Pear.ico
+30.07.2019  13:54           216.701 Starfruit.ico
+30.07.2019  13:50           243.195 Strawberry.ico
+30.07.2019  13:48           229.856 Watermelon.ico
+30.07.2019  13:52           225.605 Yellow-watermelon.ico
+              22 Datei(en),      5.779.991 Bytes
+               2 Verzeichnis(se), 64.525.209.600 Bytes frei
