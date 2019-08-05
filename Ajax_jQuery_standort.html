@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+
+-->
+<html>
+    <head>
+        <title>Standort ermitteln</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            #map {
+                width: 50%;
+                height: 30em;
+            }
+            #adress {
+                margin-top: 1em;
+            }
+            
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        
+        <script>
+            
+        $(document).ready(function() {
+            
+            $('#latInput').val(' ');
+            $('#longInput').val(' ');
+            
+            
+            $('#location').click(initPosition);
+            $('#geoData').click(function() {
+                let latitude = parseFloat($('#latInput').val());
+                let longitude = parseFloat($('#longInput').val());
+                // console.log(latitude, longitude);
+                showMap(latitude, longitude);
+                showAdress(latitude, longitude);
+            });
+            
+            
+            
+        });
+        
+                
+        // automatischer Funktionsaufruf erfolgt im Google-APIkey-Link ganz am Ende ("&callback=initPosition")
+        function initPosition() {
+            // Testen des Browers, ob Geolocation-Objekt verfügbar ist
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(positionHandling, positionError);
+            } else {
+                console.log('Kein Dienst zur Ermittlung der Geo-Daten verfügtbar');
+            }
+        }
+        
+        function positionHandling(position) {
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+            // console.log(latitude, longitude);
+            $('#latInput').val(latitude);
+            $('#longInput').val(longitude);
+            showMap(latitude, longitude);
+            showAdress(latitude, longitude);
+        }
+        
+        function positionError(error) {
+            // console.log(error.code, error.message);
+            switch (error.code) {
+                case 1 :  // PERMISSION_DENIED
+                    $('#error').html('Standortzugriff vom Benutzer verweigert');
+                    console.log(error.code, error.message);
+                    break;
+                case 2:   // POSITION_UNAVAILABLE
+                    $('#error').html('Keine Geodaten verfügbar');
+                    console.log(error.code, error.message);
+                    break;
+                case 3:   // TIMEOUT
+                    $('#error').html('Zeit überschritten');
+                    console.log(error.code, error.message);
+                    break;
+                default : // alle anderen Fehler
+                    $('#error').html('Unbekannter Fehler aufgetreten');
+                    console.log(error.code, error.message);
+                    break;
+                        
+            }
+        }
+        
+        function showMap(latitude, longitude) {
+            let mapDiv = document.getElementById('map');
+            var map = new google.maps.Map(mapDiv, {
+                center: {lat: latitude, lng: longitude},
+                zoom: 12
+            });
+            let marker = new google.maps.Marker({
+                position: {lat: latitude, lng: longitude},
+                map: map
+            });
+        }
+        
+        function showAdress(latitude, longitude) {
+            // console.log('Adresse ausgeben');
+            $('#adress').html(' ');
+            
+            var geocoder = new google.maps.Geocoder();
+            var coords = new google.maps.LatLng(latitude, longitude);
+            
+            geocoder.geocode({'latLng': coords}, function(results, status) {
+                var adress = (status == google.maps.GeocoderStatus.OK) ? 
+                     results[0].formatted_address : 'Adresse konnte nicht ermittelt werden' + status;
+                $('#adress').html(adress);
+            });
+        }
+        
+        
+        </script>
+        
+    </head>
+    <body>
+        <div>
+            <p>Standortdaten in Google-Map anzeigen:</p>
+            <div>
+                <label for="latInput">Breitengrad:</label>
+                <input type="text" id="latInput">
+            </div>
+            <div>
+                <label for="longInput">Längengrad:</label>
+                <input type="text" id="longInput">
+            </div>
+            <div>
+                <button id="location">Standort anzeigen</button>
+                <button id="geoData">Individuelle Suche</button>
+            </div>
+            <div><p id="error"></p></div>
+            <div id="map"></div>
+            <div id="adress"></div>
+        </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyArNcPFO1-LglhqdFxT5uhvaBLLzsfQ24s"
+            async defer></script>
+    </body>
+</html>
