@@ -9,5 +9,3 @@ if($_POST['antwort'] == $_SESSION['antwort']){
 }
 
 echo $isNoBot;
-
-
