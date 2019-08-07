@@ -86,7 +86,6 @@ class Ajax {
         
     }
     
-    
     getQuery() {
         var query = "";
         for (let property in this.data) {
@@ -105,11 +104,4 @@ class Ajax {
         return query;
     }
     
-    
-    
-    
-    
 }
-
-
-
