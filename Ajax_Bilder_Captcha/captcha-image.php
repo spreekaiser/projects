@@ -2,10 +2,9 @@
 
 session_start();
 $sprache = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2); // durch substr(Obj, erster Wert, zweiter Wert) 
-														   // werden hier die ersten beiden Buchstaben des Sprachwertes gewonnen
+							   // werden hier die ersten beiden Buchstaben des Sprachwertes gewonnen
 $_SESSION['language'] = $sprache;
 include($sprache.'.php'); // es sind nur deutsch und englisch hinterlegt, alles andere scheitert mit 404
-
 
 
 $bilder = array(
@@ -46,4 +45,3 @@ $_SESSION['frage'] = $bild['frage'];
 $_SESSION['antwort'] = $bild['antwort'];
 
 $json = json_encode($bild);
-
