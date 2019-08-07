@@ -4,7 +4,6 @@ CREATE DATABASE benutzer;
 
 USE benutzer;
 
-
 DROP TABLE IF EXISTS Adresse;
 CREATE TABLE Adresse (
 	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -33,6 +32,3 @@ VALUES
 SELECT id, vorname, nachname, strasse, plz, ort, email, geburtstag
 FROM Adresse
 ORDER BY nachname;
-
-
-
