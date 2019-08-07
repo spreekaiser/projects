@@ -36,8 +36,6 @@ import {MyWeather} from "./weather.js";
 
 
 
-
-
 /******************************************************************************/
 
 // Globale Werte
@@ -493,7 +491,3 @@ function showConsole(weather) {
 
 /*********************  ENDE der anonymen FUNKTION  ***************************/
 })();
-
-
-
-
