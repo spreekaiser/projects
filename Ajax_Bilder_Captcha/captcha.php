@@ -126,9 +126,7 @@ require('captcha-image.php');
 			}
 		};
 		
-		
 	</script>
 
 </body>
 </html>
-
