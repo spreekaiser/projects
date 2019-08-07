@@ -69,8 +69,6 @@ export class MyLocation {
 var iconURL = "http://openweathermap.org/img/wn/###@2x.png";
 
 
-
-
 export class MyWeather {
     constructor(origin) {
         this.origin = origin;
@@ -123,7 +121,3 @@ export class MyWeather {
 //    }
     
 }
-
-
-
-
