@@ -31,7 +31,6 @@ public class MyRequest extends AsyncTask<HashMap<String, String>, Integer, Strin
 
         public void onRequestReady(String content);
 
-
     }
 
 
@@ -46,7 +45,6 @@ public class MyRequest extends AsyncTask<HashMap<String, String>, Integer, Strin
     public MyRequest(RequestListener listener) {
         this.listener = listener;
     }
-
 
     @Override
     public String doInBackground(HashMap<String, String>... params) {
@@ -104,8 +102,6 @@ public class MyRequest extends AsyncTask<HashMap<String, String>, Integer, Strin
         this.listener.onRequestReady(content);
     }
 
-
-
     public void sendPostData(HttpURLConnection urlConnection, HashMap<String, String> data)
                     throws UnsupportedEncodingException, ProtocolException, IOException {
         // Log.i("post", "send");
@@ -159,10 +155,7 @@ public class MyRequest extends AsyncTask<HashMap<String, String>, Integer, Strin
         DataOutputStream dos = new DataOutputStream(urlConnection.getOutputStream());
         dos.write(postData);
 
-
-
     }
-
 
     public String getContent(HttpURLConnection urlConnection) throws IOException {
         String content = "xyz";
