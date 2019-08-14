@@ -50,15 +50,12 @@ public class MyCurrencyRequest extends AsyncTask<Void, Void, ArrayList<Currency>
         return currencies;
     }
 
-
     @Override
     public void onPostExecute(ArrayList<Currency> currencies) {
         // Log.i("ready", currencies.toString());
         this.listener.onRequestReady(currencies);
 
-
     }
-
 
     // private void xmlToRates(Document xmlDoc) {
     private ArrayList<Currency> xmlToRates(Document xmlDoc) {
@@ -107,7 +104,6 @@ public class MyCurrencyRequest extends AsyncTask<Void, Void, ArrayList<Currency>
         return currencies;
     }
 
-
     private Document getXMLFromURL(String link) {
         Document xmlDoc = null;
 
@@ -131,6 +127,5 @@ public class MyCurrencyRequest extends AsyncTask<Void, Void, ArrayList<Currency>
 
         return xmlDoc;
     }
-
 
 }
