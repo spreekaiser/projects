@@ -43,9 +43,7 @@ public class Valuta {
         return this.euro / rate[3];
     }
     
-    
-
-    
+       
     public double covertIntoAmount(double sourceSum, String sourceValuta, String endValuta) {
         double endSum;
         
@@ -57,7 +55,5 @@ public class Valuta {
         
         return endSum;
     }
-    
-    
     
 }
