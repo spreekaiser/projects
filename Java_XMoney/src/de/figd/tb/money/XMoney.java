@@ -36,8 +36,6 @@ public class XMoney extends JFrame implements ActionListener {
         
     }
     
-    
-    
     public static void main(String[] args) {
         System.out.println("Währungsrechner");
         
@@ -58,7 +56,6 @@ public class XMoney extends JFrame implements ActionListener {
         // System.out.printf("Kurs: %.2f %n", v.getRate());
     }
     
-    
     public void init() {
         
         JLabel headLine = this.labelCreator("Zwischen verschiedenen Währungen umrechnen", 150);
@@ -72,8 +69,6 @@ public class XMoney extends JFrame implements ActionListener {
         this.pack();
         this.setVisible(true);
     }
-    
-    
     
     public JPanel inputPanelCreator() {
         JPanel inputPanel = new JPanel(new GridLayout(2,1));
@@ -177,7 +172,6 @@ public class XMoney extends JFrame implements ActionListener {
         
     }
     
-    
     public void clear() {
         this.fromValueField.setText("");
         this.intoValueField.setText("");
@@ -188,5 +182,3 @@ public class XMoney extends JFrame implements ActionListener {
     }
     
 }
-
-        
