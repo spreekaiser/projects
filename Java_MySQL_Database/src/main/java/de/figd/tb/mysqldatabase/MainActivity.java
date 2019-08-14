@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private TextView answerField;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements
         mcr.execute();
     }
 
-
-
     public void connectToSQL() {
         Log.i("connect", "verbunden mit SQL");
 
@@ -108,6 +104,5 @@ public class MainActivity extends AppCompatActivity implements
         currencyListView.setAdapter(adapter);
 
     }
-
 
 }
